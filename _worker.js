@@ -431,7 +431,6 @@ function sanitizeHeaderValue(v) {
 // 默认模型映射表（左边是客户端请求的模型名，右边是 Cloudflare 上对应的真实模型）
 const DEFAULT_MODEL_MAP = {
 	// 对话 / 文本生成模型
-	'glm-5.2': '@cf/zai-org/glm-5.2',
 	'glm-4.7-flash': '@cf/zai-org/glm-4.7-flash',
 	'kimi-k2.6': '@cf/moonshotai/kimi-k2.6', // 效果一般，仅作兼容
 	'gemma-4-26b-a4b-it': '@cf/google/gemma-4-26b-a4b-it',
@@ -482,7 +481,6 @@ const DEFAULT_MODEL_MAP = {
 };
 
 const DEFAULT_MODEL_TOKENS = {
-    '@cf/zai-org/glm-5.2': 262144,
     '@cf/zai-org/glm-4.7-flash': 131072,
     '@cf/moonshotai/kimi-k2.6': 262144,
     '@cf/google/gemma-4-26b-a4b-it': 131072,

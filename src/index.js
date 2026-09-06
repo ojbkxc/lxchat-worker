@@ -127,7 +127,6 @@ function sanitizeHeaderValue(v) {
 // 默认模型映射表（lxchat：已移除 glm-5.3/deepseek 两系/kimi-k2.7-code 等模型）
 const DEFAULT_MODEL_MAP = {
 	// 对话 / 文本生成模型
-	'glm-5.2': '@cf/zai-org/glm-5.2',
 	'glm-4.7-flash': '@cf/zai-org/glm-4.7-flash',
 	'kimi-k2.6': '@cf/moonshotai/kimi-k2.6',
 	'gemma-4-26b-a4b-it': '@cf/google/gemma-4-26b-a4b-it',
@@ -179,7 +178,6 @@ const DEFAULT_MODEL_MAP = {
 
 // 默认模型 token 上限（lxchat：已移除被拦截模型的 token 配置）
 const DEFAULT_MODEL_TOKENS = {
-	'@cf/zai-org/glm-5.2': 262144,
 	'@cf/zai-org/glm-4.7-flash': 131072,
 	'@cf/moonshotai/kimi-k2.6': 262144,
 	'@cf/google/gemma-4-26b-a4b-it': 131072,
