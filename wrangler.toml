@@ -23,3 +23,8 @@ id = "6f8cd4464f984e64a29334eeb08b7e2f"
 # Workers AI 绑定（模式 A：单账号，内部 RPC 调用）
 [ai]
 binding = "AI"
+
+# 自定义域名：lxchatapi.1232333.xyz → lxchat（zone 1232333.xyz）
+routes = [
+	{ pattern = "lxchatapi.1232333.xyz", custom_domain = true },
+]
