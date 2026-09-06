@@ -1,0 +1,25 @@
+# lxchat — Cloudflare Worker 部署配置（独立副本，不绑定 GitHub）
+# 将 Cloudflare Workers AI 转成 OpenAI / Anthropic 兼容 API。
+#
+# 模式 A（推荐，规避检查）：main = "src/index.js"  → Dashboard 需添加 AI Binding
+# 模式 B（多账号 failover）：main = "_worker.js"    → Dashboard 无需 AI Binding
+#
+# 默认采用模式 A（Worker + AI Binding，单账号首选）。
+
+name = "lxchat"
+main = "src/index.js"
+compatibility_date = "2025-08-01"
+account_id = "cc4b64888d2bb80770ff42b0e3c1fad2"
+
+# 管理密码（用户要求明文 var，不用 secret）
+[vars]
+ADMIN_PASSWORD = "mzyxc8520#"
+
+# KV 绑定：lxchat 专用 KV namespace（2026-09-06 新建）
+[[kv_namespaces]]
+binding = "KV"
+id = "6f8cd4464f984e64a29334eeb08b7e2f"
+
+# Workers AI 绑定（模式 A：单账号，内部 RPC 调用）
+[ai]
+binding = "AI"
