@@ -1,6 +1,8 @@
-# cf-ai-gw
+# lxchat-worker
 
 将 Cloudflare Workers AI 转成 OpenAI / Anthropic 兼容 API 的网关，自带可视化管理面板。支持多账号负载均衡、故障自动切换、真实 Neurons 用量看板。
+
+> 线上实例：**`https://lxchatapi.1232333.xyz`**（自定义域名，已绑定 lxchat Worker）
 
 ## 部署模式
 
@@ -53,16 +55,27 @@ npx wrangler deploy
 > 支持添加多个账号，自动负载均衡和故障切换。账号信息以明文存储在 KV 中。
 > 模式 A 无需配置账号（AI Binding 即账号），但看板的真实 Neurons 数据同样来自账号列表的 GraphQL 查询——模式 A 的管理面板**只读**展示账号（无法增删），需先在模式 B 面板添加账号（两者共用同一 KV），或模式 A 面板配置为空时看板显示空数据。
 
+> **看板账号 Token 获取**：Cloudflare Dashboard → 头像 → **My Profile** → **API Tokens** → **Create Token** → 选模板 **`Read Cloudflare Workers AI usage and analytics`**（或自定义，需含 **Account Analytics Read** + **Workers AI Read** 权限）。生成的 `cfut_...` Token 填入「账号管理」即可让看板显示真实 Neurons 用量。当前实例 `cfg_accounts` 已预置该账号。
+
 ### 4. 创建 API Key
 
-在管理面板的「API Key」中创建 Key，客户端调用时使用：
+在管理面板的「API Key」中创建 Key，客户端调用时使用。当前线上实例已预置一个 Key（名 `lxchat`）：
+
+| 项 | 值 |
+|----|----|
+| 网关地址 | `https://lxchatapi.1232333.xyz/v1` |
+| API Key | `sk-wa-63a6c3bc8af540caaa8ee080c1742e89` |
+
+调用示例：
 
 ```bash
-curl https://cf-ai-gw.YOUR_SUBDOMAIN.workers.dev/v1/chat/completions \
+curl https://lxchatapi.1232333.xyz/v1/chat/completions \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer <API_KEY>" \
+  -H "Authorization: Bearer sk-wa-63a6c3bc8af540caaa8ee080c1742e89" \
   -d '{"model": "glm-4.7-flash", "messages": [{"role": "user", "content": "你好"}]}'
 ```
+
+> **获取方式**：如需新的 Key，登录 `/admin` 管理面板（密码为部署时设置的 `ADMIN_PASSWORD`）→「API Key」→ 创建，即可生成新的 `sk-wa-...` 密钥。KV 中以明文存储（`cfg_api_keys`）。
 
 ## 数据看板
 
